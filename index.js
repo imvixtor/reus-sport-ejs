@@ -8,7 +8,7 @@ app.set('views', './views');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('./public'));
-
+// Khánh đây
 app.use(session({
     secret: 'super-secret-key',
     resave: false,
