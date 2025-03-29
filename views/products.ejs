@@ -1,0 +1,29 @@
+<%- include('partials/start') %>
+<%- include('partials/nav') %>
+
+<section class="container my-5">
+  <div class="row g-4">
+    <!-- Sản phẩm 1 -->
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="card product-card shadow-sm">
+        <div class="position-relative">
+          <img src="https://placehold.co/300x300" class="card-img-top" alt="Product">
+          <span class="discount-badge">-20%</span>
+          <button class="wishlist-btn">
+            <i class="bi bi-heart"></i>
+          </button>
+        </div>
+        <div class="card-body text-center">
+          <h6 class="card-title">Wireless Headphones</h6>
+          <p class="text-muted">Electronics</p>
+          <p class="fw-bold text-danger">$129.99</p>
+          <button class="btn btn-primary">
+            <i class="bi bi-cart-plus"></i> Thêm vào giỏ
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>
+<%- include('partials/end') %>
