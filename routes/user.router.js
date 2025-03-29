@@ -1,45 +1,26 @@
 import express from 'express';
-import supabase from '../configs/supabaseClient.js';
-import sessionManager from '../configs/sessionManager.js';
-
+import requireAuth from '../middlewares/requireAuth.middleware.js';
 const userRouter = express.Router();
 
-userRouter.use(sessionManager);
-
 userRouter.get('/login', (req, res) => {
-    res.render('login', { title: 'Đăng nhập - Reus sport' });
+    res.render('login', { title: 'Đăng nhập - Reus sport', user: null });
 });
 
 userRouter.get('/signup', async (req, res) => {
-    res.render('signup', { title: 'Đăng ký - Reus sport' });
+    res.render('signup', { title: 'Đăng ký - Reus sport', user: null });
 });
 
 userRouter.get('/emailConfirm', async (req, res) => {
-    res.render('emailConfirm', { title: 'Xác nhận email - Reus sport' });
+    res.render('emailConfirm', { title: 'Xác nhận email - Reus sport', user: null });
 });
 
-// Đăng ký
-app.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
-    const { data, error } = await supabase.auth.signUp({ email, password });
-
-    if (error) return res.send('Lỗi đăng ký: ' + error.message);
-    req.session.user = data.user;
-    res.redirect('/');
+userRouter.get('/profile', requireAuth, async (req, res) => {
+    console.log(req.session.user);
+    res.render('profile', { title: 'Hồ sơ - Reus sport', user: req.session.user });
 });
 
-// Đăng nhập
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) return res.send('Lỗi đăng nhập: ' + error.message);
-    req.session.user = data.user;
-    res.redirect('/');
-});
-
-// Đăng xuất
-app.get('/logout', (req, res) => {
+userRouter.get('/logout', async (req, res) => {
+    await req.supabase.auth.signOut();
     req.session.destroy();
     res.redirect('/');
 });
