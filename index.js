@@ -32,6 +32,14 @@ app.get('/', (req, res) => {
     res.render('index', { title: 'Reus sport', user: req.session.user });
 });
 
+app.get('/404', (req, res) => {
+    res.render('404', { title: '404 Not Found', user: req.session.user });
+});
+
+app.get('/500', (req, res) => {
+    res.render('500', { title: '500 Error', user: req.session.user });
+});
+
 //routes
 import userRouter from './routes/user.router.js';
 app.use('/', userRouter);
