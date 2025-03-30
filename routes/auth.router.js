@@ -52,14 +52,13 @@ router.post('/login', async (req, res) => {
     if (!emailVerified) {
         req.session.error = 'Email chưa được xác thực';
         req.session.email = email;
-        return res.redirect('/verify-otp');
+        return res.redirect('/auth/resend-otp');
     }
 
     let { data, error } = await req.supabase.auth.signInWithPassword({
         email,
         password
     });
-
     if (error) {
         req.session.error = 'Sai mật khẩu hoặc email';
         return res.redirect('/login');
@@ -80,27 +79,39 @@ router.post('/verify-otp', async (req, res) => {
         token: otp,
         type: 'signup'
     });
-
     if (verifyErr) {
         console.error('Error verifying OTP:', verifyErr);
-        return res.redirect('/500');
+        req.session.error = verifyErr.message;
+        req.session.email = email;
+        return res.redirect('/verify-otp');
     }
 
     let { data, error } = await req.supabase.from('profiles').insert([
         { uid: verifyData.user.id, first_name: '', last_name: '', phone: '', address: '' },
     ]).select()
-
     if (error) {
         req.session.error = error.message;
         return res.redirect('/500');
     }
 
-    console.log('data', data);
     req.session.profile = data[0];
     req.session.user = verifyData.user;
     res.redirect('/profile-edit');
 });
 
 // gửi lại otp
+router.get('/resend-otp', async (req, res) => {
+    const email = req.session.email;
+    console.log('email', email);
+
+    const { error } = await req.supabase.auth.resend({ type: 'signup', email: email });
+    if (error) {
+        console.error('Error sending OTP:', error);
+        return res.redirect('/500');
+    }
+
+    req.session.success = 'Đã gửi lại mã xác thực vào email của bạn';
+    res.redirect('/verify-otp');
+});
 
 export default router;

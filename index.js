@@ -10,10 +10,10 @@ app.use(express.json());
 app.use(express.static('./public'));
 
 app.use(session({
-    secret: 'super-secret-key',
+    secret: 'reus-sport',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Để `false` khi chạy local, `true` khi chạy production
+    cookie: { secure: false, maxAge: 60000 } // Để `false` khi chạy local, `true` khi chạy production
 }));
 
 // Middleware lưu Supabase vào request
@@ -31,11 +31,9 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.render('index', { title: 'Reus sport', user: req.session.user });
 });
-
 app.get('/404', (req, res) => {
     res.render('404', { title: '404 Not Found', user: req.session.user });
 });
-
 app.get('/500', (req, res) => {
     res.render('500', { title: '500 Error', user: req.session.user });
 });
