@@ -42,7 +42,11 @@ app.get('/500', (req, res) => {
 import userRouter from './routes/user.router.js';
 app.use('/', userRouter);
 import authRouter from './routes/auth.router.js';
-app.use('/auth', authRouter);
+app.use('/', authRouter);
+import cartRouter from './routes/cart.router.js';
+app.use('/', cartRouter);
+import productRouter from './routes/product.router.js';
+app.use('/', productRouter);
 
 app.listen(3000, () => {
     console.log('Server is running on port 3000');

@@ -4,25 +4,32 @@
 <section class="container my-5">
   <div class="row g-4">
     <!-- Sản phẩm 1 -->
+    <% products.forEach(product => { %>
     <div class="col-sm-6 col-md-4 col-lg-3">
       <div class="card product-card shadow-sm">
         <div class="position-relative">
-          <img src="https://placehold.co/300x300" class="card-img-top" alt="Product">
-          <span class="discount-badge">-20%</span>
-          <button class="wishlist-btn">
-            <i class="bi bi-heart"></i>
-          </button>
+          <a href="/product/<%= product.product_color_id %>">
+            <% if (product.primary_img_uri) { %>
+            <img src="<%= product.primary_img_uri %>" class="card-img-top" alt="Product" style="height: 300px; object-fit: cover;">
+            <% } else { %>
+            <img src="https://placehold.co/300x300" class="card-img-top" alt="Product">
+            <% } %>
+          </a>
         </div>
         <div class="card-body text-center">
-          <h6 class="card-title">Wireless Headphones</h6>
-          <p class="text-muted">Electronics</p>
-          <p class="fw-bold text-danger">$129.99</p>
+          <a href="/product/<%= product.product_color_id %>" class="card-title"><%= product.product_name %></a>
+          <p class="text-muted"><%= product.category_name %></p>
+          <p class="fw-bold text-danger"><% if (product.price_base!=product.min_price) { %>
+            <span class="text-black-50 text-decoration-line-through"><%= product.price_base.toLocaleString('vi-VN') %></span>
+            <% } %> <%= product.min_price.toLocaleString('vi-VN') %> vnđ
+          </p>
           <button class="btn btn-primary">
             <i class="bi bi-cart-plus"></i> Thêm vào giỏ
           </button>
         </div>
       </div>
     </div>
+    <% }) %>
   </div>
 </section>
 <%- include('partials/footer') %>

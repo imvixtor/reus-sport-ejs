@@ -7,15 +7,17 @@
     <div class="collapse navbar-collapse" id="navcol-1">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link" href="/">Trang chủ</a></li>
-        <li class="nav-item"><a class="nav-link" href="/giay-bong-da">Giày bóng đá</a></li>
-        <li class="nav-item"><a class="nav-link" href="/ao-bong-da">Áo bóng đá</a></li>
-        <li class="nav-item"><a class="nav-link" href="/gang-tay">Găng tay</a></li>
-        <li class="nav-item"><a class="nav-link" href="/phu-kien">Phụ kiện</a></li>
+        <li class="nav-item"><a class="nav-link" href="/product/category/1">Giày bóng đá</a></li>
+        <li class="nav-item"><a class="nav-link" href="/product/category/2">Găng tay</a></li>
+        <li class="nav-item"><a class="nav-link" href="/product/category/3">Phụ kiện</a></li>
       </ul>
+      <a class="btn btn-outline-primary shadow me-3" href="/cart" role="button">
+        <i class="bi bi-cart3"></i>
+      </a>
       <% if (user) { %>
-      <a class="btn btn-primary shadow" role="button" href="/profile">Tài khoản</a>
+      <a class="btn btn-primary shadow" role="button" href="/profile"><i class="bi bi-person-gear"></i></a>
       <% } else { %>
-      <a class="btn btn-primary shadow" role="button" href="/login">Đăng nhập</a>
+      <a class="btn btn-outline-primary shadow" role="button" href="/login"><i class="bi bi-person"></i></a>
       <% } %>
     </div>
   </div>

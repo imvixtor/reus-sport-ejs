@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // Đăng ký
-router.post('/signup', async (req, res) => {
+router.post('/auth/signup', async (req, res) => {
     const { email, password } = req.body;
 
     let { data: emailRegisted, error: emailCheckError } = await req.supabase.rpc('check_email_registered', { email_input: email })
@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
 });
 
 // Đăng nhập
-router.post('/login', async (req, res) => {
+router.post('/auth/login', async (req, res) => {
     const { email, password } = req.body;
 
     let { data: emailRegisted, error: emailCheckError } = await req.supabase.rpc('check_email_registered', { email_input: email })
@@ -64,13 +64,12 @@ router.post('/login', async (req, res) => {
         return res.redirect('/login');
     }
 
-    console.log('data', data);
     req.session.user = data.user;
     res.redirect('/');
 });
 
 // xác thực email với otp
-router.post('/verify-otp', async (req, res) => {
+router.post('/auth/verify-otp', async (req, res) => {
     const otp = req.body.otp;
     const email = req.session.email;
 
@@ -100,7 +99,7 @@ router.post('/verify-otp', async (req, res) => {
 });
 
 // gửi lại otp
-router.get('/resend-otp', async (req, res) => {
+router.get('/auth/resend-otp', async (req, res) => {
     const email = req.session.email;
     console.log('email', email);
 
