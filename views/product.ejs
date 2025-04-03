@@ -9,9 +9,9 @@
       <div class="col-md-6 text-center">
         <div class="mb-4">
           <% if (products[0].primary_img_uri) { %>
-          <img src="<%= product.primary_img_uri %>" class="img-fluid w-75 rounded shadow" alt="Product" style="height: 300px; object-fit: cover;">
+          <img src="<%= products[0].primary_img_uri %>" class="img-fluid w-75 rounded shadow" alt="Product" object-fit: cover;">
           <% } else { %>
-          <img src="https://placehold.co/300x300" class="img-fluid w-75 rounded shadow" alt="Product">
+          <img src="/img/products/luna2white2.webp" class="img-fluid w-75 rounded shadow" alt="Product">
           <% } %>
         </div>
       </div>
